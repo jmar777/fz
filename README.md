@@ -17,21 +17,21 @@ A recent project I worked on required building out a fuzzy search interaction. S
 
 While benchmarking these approaches, it became clear that both of these techniques have merit, but under different circumstances. For example, given a use case where the query input remains relatively static between searches, the `RegExp` approach wins, hands down:
 
-[todo: image]
+<img src='https://github.com/jmar777/fz/blob/master/bench/charts/static-queries.png' alt='while loops vs. RegExp for static queries' width='80%' />
 
-But when the conditions change such that the query input is highly dynamic and frequently changes between searches, the `while` loop actually fares better (primarily due to the one-time overhead of `RegExp` instantiation):
+But when the conditions change such that the query input is highly dynamic and frequently changes between searches, the `while` loop actually fares better (primarily due to the underutilized cost of `RegExp` instantiation):
 
-[todo: image]
+<img src='https://github.com/jmar777/fz/blob/master/bench/charts/dynamic-queries.png' alt='while loops vs. RegExp for dynamic queries' width='80%' />
 
 While not everyone requires a solution that tackles both dynamic and static search inputs, it seemed like a useful feature to bring to the table. Instead of choosing one of these techniques over the other, `fz` simply defaults to `while` loops, and if it detects that the same query is being used across successive calls, it internally optimizes to a `RegExp` approach.
 
-While this internal optimization is a trivial one, the result is a solution that performs competitively (but not identically) with the more efficient solution for both of these use cases. For comparison, here is how `fz` stacks up for dynamic query inputs:
+While this internal optimization is a trivial one, the result is a solution that performs competitively (but not identically) with the more efficient solution for both of these use cases. For comparison, here is how `fz` stacks up for static query inputs:
 
-[todo: image]
+<img src='https://github.com/jmar777/fz/blob/master/bench/charts/static-queries-with-fz.png' alt='while loops vs. RegExp vs. fz for static queries' width='80%' />
 
-And here it is for static query inputs:
+And here it is for dynamic query inputs:
 
-[todo: image]
+<img src='https://github.com/jmar777/fz/blob/master/bench/charts/dynamic-queries-with-fz.png' alt='while loops vs. RegExp vs. fz for dynamic queries' width='80%' />
 
 ## Getting Started
 
