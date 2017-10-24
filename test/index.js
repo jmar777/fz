@@ -28,11 +28,11 @@ test('Partial matches should pass', t => {
   t.end();
 });
 
-test('Blank strings (unless both are blank) should fail', t => {
+test('Blank string handling', t => {
   t.equal(fz('', ''), true);
   t.equal(getCompiledResult('', ''), true);
-  t.equal(fz('foo', ''), false);
-  t.equal(getCompiledResult('foo', ''), false);
+  t.equal(fz('foo', ''), true);
+  t.equal(getCompiledResult('foo', ''), true);
   t.equal(fz('', 'foo'), false);
   t.equal(getCompiledResult('', 'foo'), false);
   t.end();
@@ -74,18 +74,6 @@ test('Chinese characters', t => {
   t.equal(getCompiledResult('学而不思则罔', '而则'), true);
   t.equal(fz('思而不学则殆', '殆思'), false);
   t.equal(getCompiledResult('思而不学则殆', '殆思'), false);
-  t.end();
-});
-
-test('Multiline handling', t => {
-  t.equal(fz(`
-    a
-    b
-  `, 'ab'), true);
-  t.equal(getCompiledResult(`
-    a
-    b
-  `, 'ab'), true);
   t.end();
 });
 

@@ -11,8 +11,9 @@ var prevQuery = '',
 
 module.exports = function fz(candidate, query) {
   if (candidate === query) return true;
+  if (!query.length) return true;
 
-  if (query === prevQuery && query.length) {
+  if (query === prevQuery) {
     if (++queryRepeatCount >= USE_REGEX_THRESHOLD) {
       if (queryRepeatCount === USE_REGEX_THRESHOLD) {
         var fuzzyRegExpString = buildFuzzyRegExpString(query);
