@@ -1,5 +1,6 @@
 const test = require('tape');
 const fz = require('../');
+const buildFuzzyRegExpString = require('../lib/build-fuzzy-regexp-string');
 
 const USE_REGEX_THRESHOLD = 2;
 
@@ -42,6 +43,49 @@ test('Non-matching strings should fail', t => {
   t.equal(getCompiledResult('foo', 'g'), false);
   t.equal(fz('foo', 'of'), false);
   t.equal(getCompiledResult('foo', 'of'), false);
+  t.end();
+});
+
+test('Special characters should be escaped in RegExp creation', t => {
+  t.equal(
+    buildFuzzyRegExpString('.*+?^${}()|[]\\\\\\'),
+    '\\..*\\*.*\\+.*\\?.*\\^.*\\$.*\\{.*\\}.*\\(.*\\).*\\|.*' +
+      '\\[.*\\].*\\\\.*\\\\.*\\\\.*'
+  );
+  t.doesNotThrow(() => {
+    getCompiledResult('blah', '.*+?^${}()|[]\\');
+  });
+  t.end();
+});
+
+test('Special characters should match as expected', t => {
+  // regex special characters
+  '.*+?^${}()|[]\\'.split('').forEach(char => {
+    t.equal(fz(`a${char}b`, `${char}b`), true);
+    t.equal(getCompiledResult(`a${char}b`, `${char}b`), true);
+    t.equal(fz(`a${char}b`, 'ac'), false);
+    t.equal(getCompiledResult(`a${char}b`, 'ac'), false);
+  });
+  t.end();
+});
+
+test('Chinese characters', t => {
+  t.equal(fz('学而不思则罔', '而则'), true);
+  t.equal(getCompiledResult('学而不思则罔', '而则'), true);
+  t.equal(fz('思而不学则殆', '殆思'), false);
+  t.equal(getCompiledResult('思而不学则殆', '殆思'), false);
+  t.end();
+});
+
+test('Multiline handling', t => {
+  t.equal(fz(`
+    a
+    b
+  `, 'ab'), true);
+  t.equal(getCompiledResult(`
+    a
+    b
+  `, 'ab'), true);
   t.end();
 });
 
