@@ -33,6 +33,8 @@ And here it is for dynamic query inputs:
 
 <img src='https://github.com/jmar777/fz/blob/master/bench/charts/dynamic-queries-with-fz.png' alt='while loops vs. RegExp vs. fz for dynamic queries' width='80%' />
 
+As can be seen above, `fz` does a decent job of keeping up for both static and dynamic input queries. If you're looking for a fuzzy search utility that removes some of the guesswork on which use case to optimize for, then `fz` might be a good option for you.
+
 ## Getting Started
 
 ### Installing `fz`
