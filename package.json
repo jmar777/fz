@@ -1,0 +1,33 @@
+{
+  "name": "fz",
+  "version": "0.1.0",
+  "description": "Simple, fast, fuzzy string searching.",
+  "main": "index.js",
+  "scripts": {
+    "test": "node test/index.js",
+    "bench": "node bench/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/jmar777/fz.git"
+  },
+  "keywords": [
+    "fuzzy",
+    "string",
+    "search",
+    "fast",
+    "tiny",
+    "quick",
+    "efficient",
+    "simple"
+  ],
+  "author": "Jeremy Martin <jmar777@gmail.com> (http://twitter.com/jmar777)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jmar777/fz/issues"
+  },
+  "homepage": "https://github.com/jmar777/fz#readme",
+  "devDependencies": {
+    "tape": "^4.8.0"
+  }
+}
