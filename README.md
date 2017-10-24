@@ -1,4 +1,4 @@
-# `ⓕuⓩzy`
+# ·𝕗𝕫·
 
 🔍 *Simple, fast, fuzzy string searching.*
 
@@ -54,7 +54,7 @@ Performs a fuzzy search against `candidate`, using `query` as the search criteri
 * `candidate` *may* contain any number of non-matching characters, including in-between the matching characters.
 * CASING is IgNoRed.
 
-Alternatively, if you think more in terms of *regular expressions*, then `fz('foobar', 'fb')` will produce the same result as `/f.*b.*/i.test('foobar')` (note, however, that the actual comparison may not actually use a regular expression).
+Alternatively, if you think more in terms of *regular expressions*, then `fz('foobar', 'fb')` will behave similarly to `/f.*b.*/i.test('foobar')` (with special handling for escape sequences and other special characters).
 
 Please see the examples below for more clarification.
 
@@ -82,7 +82,7 @@ fz('ninja pumpkin mutants', 'NPM') // true
 fz('nebulus plasma muffin', 'mpn') // false
 fz('foo', 'O') // true
 fz('bar', 'bart') // false
-fz('???', '') // false
+fz('???', '') // true
 fz('', '???') // false
 fz('', '') // true
 ```
