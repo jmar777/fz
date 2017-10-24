@@ -1,4 +1,5 @@
 const fz = require('../'),
+      buildFuzzyRegExpString = require('../lib/build-fuzzy-regexp-string'),
       isFuzzyStringMatch = require('../lib/is-fuzzy-string-match'),
       candidates = require('./words');
 
@@ -8,6 +9,10 @@ const queries = [
       ],
       clen = candidates.length,
       qlen = queries.length;
+
+const buildRegExp = query => {
+  return new RegExp(buildFuzzyRegExpString(query), 'i');
+};
 
 const tests = {
 
@@ -25,7 +30,7 @@ const tests = {
   },
 
   'RegExp with static query': () => {
-    let regex = new RegExp(queries[0].split('').join('.*'), 'i');
+    let regex = buildRegExp(queries[0]);
     for (let i = 0; i < clen; i++) {
       regex.test(candidates[i]);
     }
@@ -33,7 +38,7 @@ const tests = {
 
   'RegExp with dynamic query': () => {
     for (let i = 0; i < clen; i++) {
-      let regex = new RegExp(queries[i % qlen].split('').join('.*'), 'i');
+      let regex = buildRegExp(queries[i % qlen]);
       regex.test(candidates[i]);
     }
   },
