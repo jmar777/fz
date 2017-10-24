@@ -1,11 +1,9 @@
-# fz
+# ⓕuⓩzy
 
-> Simple, fast, fuzzy string searching.
-
-**Quick Example:**
+🔍 *Simple, fast, fuzzy string searching.*
 
 ```js
-fz('Fuzzy wuzzy', 'fzwz'); // true
+fz('fuzzy', 'fz'); // true
 ```
 
 ## Motivation
