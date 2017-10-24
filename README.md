@@ -1,4 +1,4 @@
-# ⓕuⓩzy
+# `ⓕuⓩzy`
 
 🔍 *Simple, fast, fuzzy string searching.*
 
@@ -11,7 +11,7 @@ fz('fuzzy', 'fz'); // true
 A recent project I worked on required building out a fuzzy search interaction. Surveying the already available options led me to discover that the majority of existing implementations go with one of two techniques:
 
 1. old-school `for`/`while` loops, checking character-by-character for matches
-2. regular expressions that are automatically created from the input query
+2. auto-generated regular expressions, created from the input query string
 
 While benchmarking these approaches, it became clear that both of these techniques have merit, but under different circumstances. For example, given a use case where the query input remains relatively static between searches, the `RegExp` approach wins, hands down:
 
@@ -50,20 +50,27 @@ Performs a fuzzy search against `candidate`, using `query` as the search criteri
 `candidate` will be considered a match for `query` using the following criteria:
 
 * Every character in `query` must have a match in `candidate`.
-* The matching characters must appear in the same order in both.
+* The matching characters must appear in the same order.
 * `candidate` *may* contain any number of non-matching characters, including in-between the matching characters.
 * CASING is IgNoRed.
+
+Alternatively, if you think more in terms of *regular expressions*, then `fz('foobar', 'fb')` will produce the same result as `/f.*b.*/i.test('foobar')` (note, however, that the actual comparison may not actually use a regular expression).
 
 Please see the examples below for more clarification.
 
 **Arguments:**
 
-* `candidate` :  *`String`* The string value to search against.
-* `query` :  *`String`* The fuzzy search criteria to use when determining whether or not `candidate` is a match.
+* `candidate` :  *`String (Required)`*
+
+  The string value to search against.
+
+* `query` :  *`String (Required)`*
+
+  The fuzzy search criteria to use when determining whether or not `candidate` is a match.
 
 **Returns:** `isMatch` : *`Boolean`*
 
-`true` if `candidate` is a match for `query`, otherwise `false`.
+If `candidate` is a match for `query`, then `true`, otherwise `false`.
   
 **Examples:**
 
@@ -71,7 +78,8 @@ Please see the examples below for more clarification.
 const fz = require('fz');
 
 fz('Wombat Developers Union', 'wdu') // true
-fz('Hello World!', 'wh') // false
+fz('ninja pumpkin mutants', 'NPM') // true
+fz('nebulus plasma muffin', 'mpn') // false
 fz('foo', 'O') // true
 fz('bar', 'bart') // false
 fz('???', '') // false
