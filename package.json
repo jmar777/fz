@@ -1,6 +1,6 @@
 {
   "name": "fz",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Simple, fast, fuzzy string searching.",
   "main": "index.js",
   "scripts": {
