@@ -1,7 +1,7 @@
-const fz = require('../');
 const test = require('tape');
+const fz = require('../');
 
-const USE_REGEX_THRESHOLD = 3;
+const USE_REGEX_THRESHOLD = 2;
 
 test('Matching strings should pass', t => {
   t.equal(fz('foo', 'foo'), true);
@@ -50,7 +50,7 @@ function getCompiledResult(candidate, query) {
 
   // call it enough times with the same query to force
   // the RegExp optimization to kick in
-  for (var i = 0; i < USE_REGEX_THRESHOLD; i++) {
+  for (var i = 0; i < USE_REGEX_THRESHOLD + 1; i++) {
     ret = fz(candidate, query);
   }
 

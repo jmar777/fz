@@ -1,7 +1,10 @@
 var isFuzzyStringMatch = require('./lib/is-fuzzy-string-match');
 
-var USE_REGEX_THRESHOLD = 3,
-    prevQuery = '',
+// note: this is the repetition count, so a threshld of `n` will
+// engage on the `n + 1` successive call with the same query
+var USE_REGEX_THRESHOLD = 2;
+
+var prevQuery = '',
     queryRepeatCount = 0,
     reQuery;
 
